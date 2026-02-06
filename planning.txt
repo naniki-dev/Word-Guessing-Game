@@ -1,0 +1,10 @@
+Example
+Word: _ _ _ _ _
+Lives: 5
+Guess a letter: a
+Correct!
+
+Word: a _ _ _ _
+Lives: 5
+Guess a letter: z
+Incorrect! Lives left: 4
