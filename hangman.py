@@ -2,15 +2,51 @@ import random
 
 # while loop until the guesses are correct or the lives finish
 def main():
-    print("Welcome to Hangman Terminal Game!\nA word game where the goal is to find the missing word by guessing letters.")
+    print("\nWelcome to the Hangman Terminal Game!\nA word game where the goal is to find the missing word by guessing letters.")
     print("If you guess the secret word correctly, you win!")
     print("If you guess the wrong letters, you lose a life💔")
-    user_guesses()
+    secret_word = word_generator()
+    blank_word = generates_blank_word(secret_word)
+    print("Word: "+ blank_word)
+    player_lives = 5
+    print(f"Lives: {player_lives}")
+
+
+    while player_lives != 0:
+        # if blank_word == secret_word:
+        #     print(f"You won! The secret word is {secret_word}")
+        # 1. Keep prompting user for a guess
+        letter = user_guesses()
+
+        # 2. Check if letter is in secret word
+        if letter in secret_word:
+            # if true display letter in blank word and prompt again
+            complete_word = correct(blank_word,letter,secret_word)
+            if complete_word == secret_word:
+                print(f"You won! The secret word is {secret_word}")
+                player_lives -= player_lives
+            else:
+                print("Correct!")
+                blank_word = complete_word
+                print("Word: "+ blank_word)
+            
+        else:
+         # 3. if false lose live and prompt again
+            player_lives -= 1
+            if player_lives == 0:
+                print("Game over! You finished all your lives.")
+                print(f"The word was: {secret_word}")
+            else:
+                print(f"Incorrect! Lives left: {player_lives}")
+    
+
+
 
 # A list of secret words
-words = ["door", 'electricity', 'donkey', 'hardware', 'elephant', 'queen', 'autumn', 'monkey', 'spring', 'winter',
-                'christmas', 'silver', 'birthday', 'happiness', 'worry', 'tongue', 'family', 'island', 'planet', 'butterfly']
+# words = ["door", 'electricity', 'donkey', 'hardware', 'elephant', 'queen', 'autumn', 'monkey', 'spring', 'winter',
+#                 'christmas', 'silver', 'birthday', 'happiness', 'worry', 'tongue', 'family', 'island', 'planet', 'butterfly']
 
+words = ["queen", "door"]
 
 # Randomly pick one word
 def word_generator():
@@ -18,8 +54,8 @@ def word_generator():
     return secret_word
 
 
-# True - update the display
-# False - Lose a life
+
+# Check if the user inputs only one letter
 def user_guesses():
     guesses = ""
     while len(guesses) == 0:
@@ -39,24 +75,19 @@ def user_guesses():
     return guesses
 
 
-def hearts():
-    player_lives = 5
-    wrong = False
-    if wrong:
-        player_lives -= 1
-        print(f"Incorrect! Lives left: {player_lives}")
-    if player_lives == 0:
-        print("You've finished all your lives. Game over!")
+def generates_blank_word(word):
+    blank_word = "_" * len(word)
+    return blank_word
 
+# Change the blank lines with the correct letter
+def correct(blank, letter, word):
+    indexes = [position for position, char in enumerate(word) if char == letter]
+    string_list = list(blank)
+    for index in indexes:
+        string_list[index] = letter
+    complete_word = "".join(string_list)
 
-
-def generates_blank_word():
-    # Check if its in the secret word
-    blank_word = "-" * len(word_generator())
-    return "Word: " + blank_word
-
-def function_n():
-    pass
+    return complete_word
 
 if __name__ == "__main__":
     main()
