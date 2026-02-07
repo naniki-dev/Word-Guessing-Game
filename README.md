@@ -26,3 +26,8 @@ This project is a Hangman Game, played through the terminal. The user has to gue
 - Validated user input.
 - Wrote and ran tests using pytest.
 - Organised a small Python project
+
+## Improvements I can make
+- Get the list of words from an API request.
+- Have different levels (e.g. easy, medium, difficult)
+- Have different themes for the list of words.
