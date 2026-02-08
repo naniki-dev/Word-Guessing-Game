@@ -22,7 +22,8 @@ def main():
             complete_word = correct(blank_word,letter,secret_word)
             if complete_word == secret_word:
                 print(f"You won! The secret word is {secret_word}")
-                player_lives -= player_lives
+                break
+ 
             else:
                 print("Correct!")
                 blank_word = complete_word
@@ -44,6 +45,7 @@ words = ["algorithm", "variable", "function", "compiler", "runtime", "framework"
          "stack", "array", "string", "class", "object"]
 
 
+
 # Randomly pick one word
 def word_generator():
     secret_word = random.choice(words)
@@ -60,18 +62,20 @@ def user_guesses():
                 raise ValueError
             elif guess.isdigit():
                 raise TypeError
+            elif not guess.isalpha():
+                raise ValueError
             else:
                 guesses += guess
         except ValueError:
             print("Only enter ONE letter.")
         except TypeError:
-            print("Do not enter numbers.")
+            print("Only letters are allowed.")
 
     return guesses
 
 # Generate blank word
 def generates_blank_word(word):
-    blank_word = "_" * len(word)
+    blank_word = "-" * len(word)
     return blank_word
 
 # Change the blank lines with the correct letter
